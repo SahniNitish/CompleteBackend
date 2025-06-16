@@ -1,9 +1,46 @@
 const express = require("express");
 const fs = require("fs");
+const mongoose = require("mongoose");
 const users = require("./MOCK_DATA.json")
 
 const app = express();
 const PORT = 8000;
+
+//connection
+mongoose
+.connect('mongodb://127.0.0.1:27017/youtube-app-1')
+.then(()=> console.log("mongoDB connected"))
+.catch((err)=> console.log("MogoBD error " , err));
+
+
+
+//Schema
+const userSchema = new mongoose.Schema({
+    firstName : {
+        type: String,
+        required: true,
+    },
+    lastName : {
+        type: String,
+    },
+    email:{
+        type:String,
+        required: true,
+        unique: true,
+    },
+    jobTitle:{
+        type:String ,
+        required: true,
+    },
+    gender:{
+        type:String,
+        required:true,
+
+    }
+})
+
+const User = mongoose.model('user' , userSchema);
+
 
 //Middleware
 app.use(express.urlencoded({ extended: false}));
