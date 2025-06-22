@@ -1,6 +1,11 @@
 const express = require("express");
 const fs = require("fs");
-const users = require("./MOCK_DATA.json")
+
+const mongoose = require("mongoose");
+const {connectMongoDb} = require("./connection");
+
+const userRouter = require("./routes/user");
+
 
 const app = express();
 const PORT = 8000;
@@ -28,7 +33,7 @@ app.route("/api/users/:id").get((req, res) => {
     const user = users.find((user)=> user.id === id);
 
     for(const key in req.body){
-        if(user.hasOwnProperty(key))
+        id(user.hasOwnProperty(key))
         {
             user[key] = req.body[key];
         }
@@ -64,5 +69,5 @@ app.post("/api/users" , (req , res )=>{
 
 
 app.listen(PORT, () => {
-    console.log(`Server Started`)
-})
+    console.log(`Server is running on port ${PORT}`);
+});
