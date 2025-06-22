@@ -28,7 +28,7 @@ app.route("/api/users/:id").get((req, res) => {
     const user = users.find((user)=> user.id === id);
 
     for(const key in req.body){
-        id(user.hasOwnProperty(key))
+        if(user.hasOwnProperty(key))
         {
             user[key] = req.body[key];
         }
